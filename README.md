@@ -3,7 +3,7 @@
 Laravel-USPS is a composer package that allows you to integrate the USPS Address / Shipping API / Rates Calculator. This package is ported from @author Vincent Gabriel https://github.com/VinceG/USPS-php-api
 
   - Requires a valid USPS API Username
-  - Tested on Laravel 10
+  - Tested on Laravel 10 and 11
 
 ## Installation
 
@@ -27,10 +27,10 @@ Then you must also specify the alias in `config/app.php`. Add a new item to the 
 ```php
 'Usps' => Johnpaulmedina\Usps\Facades\Usps::class,
 ```
-This will allow integration by adding the Facade `Use Usps;` 
+This will allow integration by adding the Facade `Use Usps;`
 
 ## Laravel Config
-Add your USPS username config in `config/services.php`. 
+Add your USPS username config in `config/services.php`.
 
 ```php
 'usps' => [
@@ -54,11 +54,11 @@ class USPSController extends Controller
 {
     public function index() {
         return response()->json(
-            Usps::validate( 
-                Request::input('Address'), 
-                Request::input('Zip'), 
-                Request::input('Apartment'), 
-                Request::input('City'), 
+            Usps::validate(
+                Request::input('Address'),
+                Request::input('Zip'),
+                Request::input('Apartment'),
+                Request::input('City'),
                 Request::input('State')
             )
         );
@@ -66,7 +66,7 @@ class USPSController extends Controller
 
     public function trackConfirm() {
         return response()->json(
-            Usps::trackConfirm( 
+            Usps::trackConfirm(
                 Request::input('id')
             )
         );
@@ -74,15 +74,15 @@ class USPSController extends Controller
 
     public function trackConfirmRevision1() {
         return response()->json(
-            Usps::trackConfirm( 
+            Usps::trackConfirm(
                 Request::input('id'),
                 'Acme, Inc'
             )
         );
     }
-    
+
     public function rate(Request $request) {
-    
+
         $usps_rate = Usps::rate(
             [
                 'Service' => $request->input('Service', 'PRIORITY COMMERCIAL'),
@@ -106,9 +106,9 @@ class USPSController extends Controller
             'weight'=> $usps_return_weight,
             'usps' => $usps_rate
         ]);
-	
+
     }
-    
+
 }
 ```
 
@@ -141,7 +141,7 @@ Requirements
 
 - PHP >= 8.1
 - USPS API Username
-- - Laravel 10
+- - Laravel 10 or 11
 
 
 Authors
